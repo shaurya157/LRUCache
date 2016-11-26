@@ -1,17 +1,17 @@
 # This class just dumbs down a regular Array to be staticly sized.
 class StaticArray
+  attr_reader :length
   def initialize(length)
-    @array = Array.new(length)
+    @store = Array.new(length, nil)
   end
 
   # O(1)
   def [](index)
-    @array[index]
+    @store[index]
   end
-
   # O(1)
   def []=(index, value)
-    @array[index] = value
+    @store[index] = value
   end
 
   protected
