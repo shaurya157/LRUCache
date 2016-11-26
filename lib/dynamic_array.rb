@@ -34,7 +34,7 @@ class DynamicArray
   # O(1) ammortized; O(n) worst case. Variable because of the possible
   # resize.
   def push(val)
-    resize! if @length > @capacity
+    self.resize! if @length == @capacity
     @store[@length] = val
     @length += 1
   end
@@ -76,8 +76,8 @@ class DynamicArray
 
   # O(n): has to copy over all the elements to the new store.
   def resize!
+    p 'resizing'
     @capacity *= 2
-    p @capacity
     new_store = StaticArray.new(@capacity)
     0.upto(@length - 1) do |i|
       new_store[i] = @store[i]
