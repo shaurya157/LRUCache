@@ -17,7 +17,7 @@ class HashMap
   def set(key, val)
     delete(key) if include?(key)
     resize! if @count == num_buckets
-    
+
     @store[key.hash % num_buckets].insert(key, val)
     @count += 1
   end
@@ -32,6 +32,11 @@ class HashMap
   end
 
   def each
+    @store.each do |list|
+      list.each do |node|
+        yield(node.key, node.val)
+      end
+    end
   end
 
   def to_s
