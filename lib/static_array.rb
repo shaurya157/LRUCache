@@ -1,6 +1,6 @@
 # This class just dumbs down a regular Array to be staticly sized.
 class StaticArray
-  attr_reader :length, :store
+  attr_reader :length
   def initialize(length)
     @store = Array.new(length, nil)
   end
