@@ -36,18 +36,21 @@ class IntSet
   end
 
   def insert(num)
+    @store[num % num_buckets] << num if !include?(num)
   end
 
   def remove(num)
+    @store[num % num_buckets].delete(num)
   end
 
   def include?(num)
+    @store[num % num_buckets].include?(num)
   end
 
   private
 
   def [](num)
-    # optional but useful; return the bucket corresponding to `num`
+    @store[num % num_buckets]
   end
 
   def num_buckets
@@ -64,18 +67,26 @@ class ResizingIntSet
   end
 
   def insert(num)
+    resize! if @count == num_buckets
+    
+    if !include?(num)
+      @store[num % num_buckets] << num
+      @count += 1
+    end
   end
 
   def remove(num)
+    @store[num % num_buckets].delete(num)
   end
 
   def include?(num)
+    @store[num % num_buckets].include?(num)
   end
 
   private
 
   def [](num)
-    # optional but useful; return the bucket corresponding to `num`
+    @store[num % num_buckets]
   end
 
   def num_buckets
@@ -83,5 +94,15 @@ class ResizingIntSet
   end
 
   def resize!
+    new_store = Array.new(num_buckets * 2) { Array.new }
+    length = new_store.length
+
+    @store.each do |arr|
+      arr.each do |num|
+        new_store[num % length] << num
+      end
+    end
+
+    @store = new_store
   end
 end
