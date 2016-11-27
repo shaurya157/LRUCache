@@ -16,7 +16,7 @@ end
 
 class LinkedList
   include Enumerable
-  
+
   def initialize
     @head = Link.new
     @tail = Link.new
